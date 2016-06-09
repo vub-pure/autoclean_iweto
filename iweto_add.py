@@ -1,5 +1,4 @@
 from selenium import webdriver
-import unittest
 
 username = input("Username: ")
 password = input("Password: ")
