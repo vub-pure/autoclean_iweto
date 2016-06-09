@@ -1,13 +1,21 @@
 from selenium import webdriver
 import unittest
 
-with open(ADD LINK TO INPUT FILE HERE) as f:
-    d = dict(csv.reader(f, delimiter='\t'))
-
-od = collections.OrderedDict(sorted(d.items()))
-
 username = input("Username: ")
 password = input("Password: ")
+
+# set up initial connection and login
+driver = webdriver.Firefox()
+driver.implicitly_wait(30)
+# driver.maximize_window()
+driver.get("https://cris.cumulus.vub.ac.be/admin/login.xhtml")
+username_field = driver.find_element_by_id("j_username_input_field")
+username_field.clear()
+username_field.send_keys(username)
+password_field = driver.find_element_by_id("j_password_input_field")
+password_field.clear()
+password_field.send_keys(password)
+password_field.submit()
 
 # choose environment
 env = ''
@@ -21,6 +29,12 @@ while not env:
         env = 'ADD URL TO PROD HERE'
     else:
         print("Invalid environment")
+
+
+with open(ADD LINK TO INPUT FILE HERE) as f:
+    d = dict(csv.reader(f, delimiter='\t'))
+
+od = collections.OrderedDict(sorted(d.items()))
 
 for k, v in od.items():
     # navigate to award screen
